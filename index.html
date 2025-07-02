@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pavan Prakash K - Developer Portfolio</title>
+    <link rel="icon" href="./assets/html.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Terminal Header */
+        .terminal-header {
+            background: #161b22;
+            padding: 10px 20px;
+            border-bottom: 1px solid #30363d;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27ca3f; }
+
+        .terminal-title {
+            margin-left: 15px;
+            font-size: 14px;
+            color: #8b949e;
+        }
+
+        /* Navigation */
+        .nav {
+            background: #21262d;
+            padding: 15px 0;
+            margin-top: 60px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .prompt {
+            color: #7c3aed;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: #58a6ff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+        }
+
+        /* Sections */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid #21262d;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #f0f6fc;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '$ ';
+            color: #7c3aed;
+            margin-right: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .ascii-art {
+            font-size: 12px;
+            color: #7c3aed;
+            white-space: pre;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            color: #f0f6fc;
+            margin-bottom: 10px;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            color: #7ee787;
+            margin-bottom: 30px;
+        }
+
+        .hero .description {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: #8b949e;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid #58a6ff;
+            color: #58a6ff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #58a6ff;
+            color: #0d1117;
+        }
+
+        .btn.primary {
+            background: #58a6ff;
+            color: #0d1117;
+        }
+
+        .btn.primary:hover {
+            background: #4493f8;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-5px);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            color: #f0f6fc;
+            font-size: 20px;
+        }
+
+        .project-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-link {
+            color: #58a6ff;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 4px 8px;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            border-color: #58a6ff;
+        }
+
+        .project-description {
+            color: #8b949e;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: #21262d;
+            color: #7ee787;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .skill-category {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .skill-category h3 {
+            color: #f0f6fc;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-item {
+            background: #21262d;
+            color: #58a6ff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-info {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #8b949e;
+        }
+
+        .contact-item strong {
+            color: #f0f6fc;
+            margin-right: 10px;
+            min-width: 80px;
+        }
+
+        .contact-form {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #f0f6fc;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #8b949e;
+            border-top: 1px solid #21262d;
+        }
+
+        .footer .prompt-line {
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ascii-art {
+                font-size: 10px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Cursor animation */
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Terminal Header -->
+    <div class="terminal-header">
+        <div class="terminal-buttons">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
+            <span class="terminal-title">portfolio.sh - Terminal</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <div class="prompt">pavanprakash@portfolio:~$</div>
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">./about.sh</a>
+                    <a href="#projects" class="nav-link">./projects.sh</a>
+                    <a href="#skills" class="nav-link">./skills.sh</a>
+                    <a href="#contact" class="nav-link">./contact.sh</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <div class="container">
+            <div class="ascii-art">
+ ██████╗  ██████╗ ██████╗ ████████╗███████╗ ██████╗ ██╗     ██╗ ██████╗ 
+ ██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔═══██╗██║     ██║██╔═══██╗
+ ██████╔╝██║   ██║██████╔╝   ██║   █████╗  ██║   ██║██║     ██║██║   ██║
+ ██╔═══╝ ██║   ██║██╔══██╗   ██║   ██╔══╝  ██║   ██║██║     ██║██║   ██║
+ ██║     ╚██████╔╝██║  ██║   ██║   ██║     ╚██████╔╝███████╗██║╚██████╔╝
+ ╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚══════╝╚═╝ ╚═════╝ 
+            </div>
+            <h1>Pavan Prakash</h1>
+            <p class="description">
+                Welcome to my terminal! Crafting digital experiences that make a difference.
+                From concept to deployment, I build software that works.
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn primary">View Projects</a>
+                <a href="/resume.pdf" class="btn" download>Download Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title">projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Neurocode - AI-Powered Development Companion</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/PavanCodes05/NeuroCode" class="project-link" target="_blank">GitHub</a>
+                            <!-- <a href="#" class="project-link">Live Demo</a> -->
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Revolutionary VS Code extension that transforms pair programming with intelligent AI personas. Each persona provides contextual feedback, suggestions, and questions tailored to different coding perspectives - from code reviewer to code critic. Features include real-time code analysis, snippet explanations, intelligent refactoring, and prompt-based code generation and modification.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Typescript</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Disaster Relief Hub - Community-Driven Crisis Response Platform</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/PavanCodes05/Disaster-Relief-Hub" target="_blank" class="project-link">GitHub</a>
+                            <a href="https://disaster-relief-hub.onrender.com" target="_blank" class="project-link">Live Demo</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Social platform connecting disaster victims with willing donors through intelligent resource matching. Affected individuals post their specific needs while donors maintain real-time inventories. Smart matching algorithms connect requests with available resources, enabling targeted aid distribution. Features include geolocation-based matching, real-time chat for logistics coordination, and post categorization by urgency and resource type
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express JS</span>
+                        <span class="tech-tag">Socket.io</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Mongo DB</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">AIOT Guardian - Smart Gunshot Detection System</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/PavanCodes05/Gunshot-Detection-System" target="_blank" class="project-link">GitHub</a>
+                            <a href="https://pavancodes05-gunshot-detector-app-of3tm7.streamlit.app/" target="_blank" class="project-link">Live Demo</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        AI-powered edge device that provides real-time gunshot detection and emergency alerts. Custom-trained deep learning model optimized for edge deployment that detects gunshot sounds in real-time. Built complete hardware-software solution with sub-second audio processing and instant mobile alerts. Developed for Tamil Nadu Forest Department hackathon to enhance wildlife protection and ranger safety in forest areas
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">React native</span>
+                        <span class="tech-tag">Tensorflow</span>
+                        <span class="tech-tag">TF Lite</span>
+                        <span class="tech-tag">Fast API</span>
+                        <span class="tech-tag"></span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Spell Champ - Gamified Language Learning Platform</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/PavanCodes05/Spell-Champ-Frontend" class="project-link" target="_blank">Frontend</a>
+                            <a href="https://github.com/PavanCodes05/Spell-Champ-Backend" target="_blank" class="project-link">Backend</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Grade-based vocabulary learning app with word tracing, pronunciation playback, and gamified quiz system. Students progress through exercises by typing/tracing new words, hearing correct pronunciation, then completing various quiz formats. Achievement system rewards progress with trophies and diamonds to maintain engagement.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Typescript</span>
+                        <span class="tech-tag">Express JS</span>
+                        <span class="tech-tag">Dart</span>
+                        <span class="tech-tag">Firebase</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Cognista 2k25 - Futuristic Event Landing Page</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/PavanCodes05/Cognista-2k25" class="project-link">GitHub</a>
+                            <a href="https://cognista-2k25.vercel.app/" class="project-link" target="_blank">Live Demo</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Modern college symposium registration page with cutting-edge futuristic UI design. Features smooth animations, responsive layout, and seamless Google Forms integration for entry collection. Optimized user experience with intuitive navigation flow.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Next Js</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Google Forms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="section-title">skills --list</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">C</span>
+                        <span class="skill-item">C ++</span>
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">JavaScript</span>
+                        <span class="skill-item">TypeScript</span>
+                        <span class="skill-item">Golang</span>
+                        <span class="skill-item">Dart</span>
+                        <span class="skill-item">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">React</span>
+                        <span class="skill-item">Flutter</span>
+                        <span class="skill-item">React-native</span>
+                        <span class="skill-item">Next js</span>
+                        <span class="skill-item">HTML5</span>
+                        <span class="skill-item">CSS3</span>
+                        <span class="skill-item">Tailwind CSS</span>
+                        <span class="skill-item">Bootstrap</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">Express.js</span>
+                        <span class="skill-item">Flask</span>
+                        <span class="skill-item">FastAPI</span>
+                        <span class="skill-item">Pytorch</span>
+                        <span class="skill-item">Tensorflow</span>
+                        <span class="skill-item">Nginx</span>
+                        <span class="skill-item">REST APIs</span>
+                        <span class="skill-item">GraphQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Database & Tools</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">MongoDB</span>
+                        <span class="skill-item">Firebase</span>
+                        <span class="skill-item">MySQL</span>
+                        <span class="skill-item">Git</span>
+                        <span class="skill-item">Github</span>
+                        <span class="skill-item">Postman</span>
+                        <span class="skill-item">Linux</span>
+                        <span class="skill-item">Fedora</span>
+                        <span class="skill-item">VsCode</span>
+                        <span class="skill-item">Markdown</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">contact --info</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 style="color: #f0f6fc; margin-bottom: 20px;">Get In Touch</h3>
+                    <div class="contact-item">
+                        <strong>Email:</strong> pavancodes05@gmail.com
+                    </div>
+                    <div class="contact-item">
+                        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/pavancodes05/" target="_blank" class="project-link">linkedin.com/in/pavancodes05</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>GitHub:</strong> <a href="https://github.com/PavanCodes05" target="_blank" class="project-link">github.com/pavancodes05</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="prompt-line">
+                pavanprakash@portfolio:~$ echo "Thanks for visiting!" && exit<span class="cursor">_</span>
+            </div>
+            <p style="margin-top: 10px;">© 2025 Pavan Prakash K. Built with HTML, CSS & JavaScript.</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Form submission (you'll need to implement backend handling)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thanks for your message! I\'ll get back to you soon.');
+            this.reset();
+        });
+
+        // Add typing effect to hero section (optional enhancement)
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Intersection Observer for scroll animations (optional)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe project cards for animation
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = '0.3';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
